@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour {
 	public Text mainScoreDisplay;
 	public Text mainTimerDisplay;
 
+	public GameObject menu;
+
 	public GameObject gameOverScoreOutline;
 
 	public AudioSource musicAudioSource;
@@ -46,6 +48,9 @@ public class GameManager : MonoBehaviour {
 		// init scoreboard to 0
 		mainScoreDisplay.text = "0";
 
+		// repurpose the timer to display a message to the player before game starts
+		mainTimerDisplay.text = "ALIEN SHOOTER";
+
 		// inactivate the gameOverScoreOutline gameObject, if it is set
 		if (gameOverScoreOutline)
 			gameOverScoreOutline.SetActive (false);
@@ -57,6 +62,14 @@ public class GameManager : MonoBehaviour {
 		// inactivate the nextLevelButtons gameObject, if it is set
 		if (nextLevelButtons)
 			nextLevelButtons.SetActive (false);
+
+		// reduce the pitch of the background music, if it is set 
+		if (musicAudioSource)
+			musicAudioSource.pitch = 0.5f; // slow down the music
+
+		// activate the menu gameObject, if it is set
+		if (menu)
+			menu.SetActive (true);
 	}
 
 	// this is the main game event loop
@@ -91,9 +104,13 @@ public class GameManager : MonoBehaviour {
 		// reduce the pitch of the background music, if it is set 
 		if (musicAudioSource)
 			musicAudioSource.pitch = 0.5f; // slow down the music
+
+		// activate the menu gameObject, if it is set
+		if (menu)
+			menu.SetActive (true);
 	}
 	
-	void BeatLevel() {
+	public void BeatLevel() {
 		// game is over
 		gameIsOver = true;
 
@@ -111,6 +128,10 @@ public class GameManager : MonoBehaviour {
 		// reduce the pitch of the background music, if it is set 
 		if (musicAudioSource)
 			musicAudioSource.pitch = 0.5f; // slow down the music
+
+		// activate the menu gameObject, if it is set
+		if (menu)
+			menu.SetActive (true);
 	}
 
 	// public function that can be called to update the score or time
@@ -145,6 +166,23 @@ public class GameManager : MonoBehaviour {
 		// we are just loading the specified next level (scene)
 		Application.LoadLevel (nextLevelToLoad);
 	}
-	
+
+	// public function that can be called to start the game
+	public void StartGame ()
+	{
+		// use the timer to display the time left
+		mainTimerDisplay.text = currentTime.ToString ("0.00");
+
+		// increase the pitch of the background music, if it is set 
+		if (musicAudioSource)
+			musicAudioSource.pitch = 1.2f; // make the music faster
+
+		// inactivate the menu gameObject, if it is set
+		if (menu)
+			menu.SetActive (false);
+
+		// start the game
+		gameIsOver = false;
+	}
 
 }

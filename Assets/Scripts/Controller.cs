@@ -19,6 +19,12 @@ public class Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// exit if there is a game manager and the game is over
+		if (GameManager.gm) {
+			if (GameManager.gm.gameIsOver)
+				return;
+		}
+
 		// Determine how much should move in the z-direction
 		Vector3 movementZ = Input.GetAxis("Vertical") * Vector3.forward * moveSpeed * Time.deltaTime;
 

@@ -20,7 +20,7 @@ public class MouseLooker : MonoBehaviour {
 
 	void Start() {
 		// start the game with the cursor locked
-		LockCursor (true);
+		LockCursor (false);
 
 		// get a reference to the character's transform (which this script should be attached to)
 		character = gameObject.transform;
@@ -34,18 +34,28 @@ public class MouseLooker : MonoBehaviour {
 	}
 	
 	void Update() {
+		// exit if there is a game manager and the game is over
+		if (GameManager.gm) {
+			if (GameManager.gm.gameIsOver) {
+				LockCursor (false);
+				return;
+			} else {
+				LockCursor (true);
+			}
+		}
+
 		// rotate stuff based on the mouse
 		LookRotation ();
 
-		// if ESCAPE key is pressed, then unlock the cursor
-		if(Input.GetButtonDown("Cancel")){
-			LockCursor (false);
-		}
-
-		// if the player fires, then relock the cursor
-		if(Input.GetButtonDown("Fire1")){
-			LockCursor (true);
-		}
+//		// if ESCAPE key is pressed, then unlock the cursor
+//		if(Input.GetButtonDown("Cancel")){
+//			LockCursor (false);
+//		}
+//
+//		// if the player fires, then relock the cursor
+//		if(Input.GetButtonDown("Fire2")){
+//			LockCursor (true);
+//		}
 	}
 	
 	private void LockCursor(bool isLocked)

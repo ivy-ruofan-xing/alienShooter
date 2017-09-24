@@ -6,7 +6,7 @@ public class door : MonoBehaviour {
 
 	private GameObject theDoor;
 
-	void OnTriggerEnter(Collision collision) 						// open the door animation
+	void OnTriggerEnter(Collider collision) 					// open the door animation
 	{	
 		if (collision.gameObject.tag == "Player") {
 			theDoor = GameObject.FindWithTag ("SF_Door");
@@ -14,7 +14,7 @@ public class door : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit(Collision collision) 						// close the door animation
+	void OnTriggerExit(Collider collision) 						// close the door animation
 	{	
 		if (collision.gameObject.tag == "Player") {
 			theDoor = GameObject.FindWithTag ("SF_Door");

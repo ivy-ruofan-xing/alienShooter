@@ -12,6 +12,12 @@ public class Shooter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// exit if there is a game manager and the game is over
+		if (GameManager.gm) {
+			if (GameManager.gm.gameIsOver)
+				return;
+		}
+
 		// Detect if fire button is pressed
 		if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump"))
 		{	

@@ -31,15 +31,18 @@ public class Chaser : MonoBehaviour {
 		if (target == null)
 			return;
 
-		// face the target
-		transform.LookAt(target);
+		// only chase while game is playing
+		if (!GameManager.gm.gameIsOver) {
+			// face the target
+			transform.LookAt (target);
 
-		//get the distance between the chaser and the target
-		float distance = Vector3.Distance(transform.position,target.position);
+			//get the distance between the chaser and the target
+			float distance = Vector3.Distance (transform.position, target.position);
 
-		//so long as the chaser is farther away than the minimum distance, move towards it at rate speed.
-		if(distance > minDist)	
-			transform.position += transform.forward * speed * Time.deltaTime;	
+			//so long as the chaser is farther away than the minimum distance, move towards it at rate speed.
+			if (distance > minDist)
+				transform.position += transform.forward * speed * Time.deltaTime;
+		}
 	}
 
 	// Set the target of the chaser
