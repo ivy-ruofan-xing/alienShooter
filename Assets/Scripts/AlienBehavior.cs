@@ -9,6 +9,9 @@ public class AlienBehavior : MonoBehaviour
 	public float timeAmount = 0.0f;
 	public float exitAnimationSeconds = 1f; // should be >= time of the exit animation
 
+	// Reference to AudioClip to play
+	public AudioClip hitSFX;
+
 	private bool startDestroy = false;
 
 	// when collided with another gameObject
@@ -25,6 +28,20 @@ public class AlienBehavior : MonoBehaviour
 			// if game manager exists, make adjustments based on target properties
 			if (GameManager.gm) {
 				GameManager.gm.targetHit (scoreAmount, timeAmount);
+			}
+
+			// play sound effect if set
+			if (hitSFX)
+			{
+				if (this.GetComponent<AudioSource> ()) { // the projectile has an AudioSource component
+					// play the sound clip through the AudioSource component on the gameobject.
+					// note: The audio will travel with the gameobject.
+					this.GetComponent<AudioSource> ().PlayOneShot (hitSFX);
+				} else {
+					// dynamically create a new gameObject with an AudioSource
+					// this automatically destroys itself once the audio is done
+					AudioSource.PlayClipAtPoint (hitSFX, this.transform.position);
+				}
 			}
 
 			if (this.GetComponent<Animator> () == null)

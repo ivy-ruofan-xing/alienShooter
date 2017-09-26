@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
 	public AudioSource musicAudioSource;
 
 	public bool gameIsOver = false;
+	public bool gameHasBeenPlayed = false;
 
 	public GameObject playAgainButtons;
 	public string playAgainLevelToLoad;
@@ -183,6 +184,7 @@ public class GameManager : MonoBehaviour {
 
 		// start the game
 		gameIsOver = false;
+		gameHasBeenPlayed = true;
 	}
 
 }

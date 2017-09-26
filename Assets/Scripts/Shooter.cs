@@ -6,6 +6,7 @@ public class Shooter : MonoBehaviour {
 	// Reference to projectile prefab to shoot
 	public GameObject projectile;
 	public float power = 10.0f;
+	public float volume = 1.0f;
 	
 	// Reference to AudioClip to play
 	public AudioClip shootSFX;
@@ -41,11 +42,11 @@ public class Shooter : MonoBehaviour {
 					if (newProjectile.GetComponent<AudioSource> ()) { // the projectile has an AudioSource component
 						// play the sound clip through the AudioSource component on the gameobject.
 						// note: The audio will travel with the gameobject.
-						newProjectile.GetComponent<AudioSource> ().PlayOneShot (shootSFX);
+						newProjectile.GetComponent<AudioSource> ().PlayOneShot (shootSFX, volume);
 					} else {
 						// dynamically create a new gameObject with an AudioSource
 						// this automatically destroys itself once the audio is done
-						AudioSource.PlayClipAtPoint (shootSFX, newProjectile.transform.position);
+						AudioSource.PlayClipAtPoint (shootSFX, newProjectile.transform.position, volume);
 					}
 				}
 			}
